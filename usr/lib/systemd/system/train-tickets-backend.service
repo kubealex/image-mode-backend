@@ -1,0 +1,16 @@
+[Unit]
+Description=Train Tickets Backend API
+After=systemd-tmpfiles-setup.service
+
+[Service]
+Type=simple
+WorkingDirectory=/var/app/backend
+ExecStart=/usr/bin/node /var/app/backend/src/index.js
+Restart=on-failure
+RestartSec=5
+
+Environment=PORT=3001
+Environment=DATABASE_URL=postgresql://postgres:postgres@localhost:5432/train_tickets
+
+[Install]
+WantedBy=multi-user.target
