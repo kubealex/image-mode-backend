@@ -9,6 +9,7 @@ ExecStart=/usr/bin/node /var/app/backend/src/index.js
 Restart=on-failure
 RestartSec=5
 
+EnvironmentFile=-/etc/train-tickets/backend.env
 Environment=PORT=3001
 Environment=DATABASE_URL=postgresql://postgres:postgres@localhost:5432/train_tickets
 
