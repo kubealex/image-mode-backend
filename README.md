@@ -48,4 +48,18 @@ DATABASE_URL=postgresql://postgres:postgres@your-db-host:5432/train_tickets npm 
 podman build -t quay.io/kubealex/image-mode-backend:v1.1 .
 ```
 
+With custom connection strings baked into the image:
+
+```bash
+podman build \
+  --build-arg DATABASE_URL=postgresql://postgres:postgres@db.example.com:5432/train_tickets \
+  --build-arg BACKEND_PORT=3001 \
+  -t quay.io/kubealex/image-mode-backend:v1.1 .
+```
+
+| Build ARG | Default | Description |
+|-----------|---------|-------------|
+| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/train_tickets` | PostgreSQL connection string |
+| `BACKEND_PORT` | `3001` | API listen port |
+
 Base image: `quay.io/kubealex/image-mode-baseos:latest`
