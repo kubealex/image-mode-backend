@@ -16,30 +16,29 @@ Express.js REST API for the Train Tickets booking application, packaged as a RHE
 
 ## Configuration
 
+The database hostname is read from the `DB_HOST` environment variable (default: `localhost`). The app uses `dotenv` to load a `.env` file at startup.
+
 ### Container / Image Mode
 
-Create `/etc/train-tickets/backend.env`:
+The hostname is baked into the image at build time via a `.env` file. To override at runtime, create `/etc/train-tickets/backend.env`:
 
 ```env
-DATABASE_URL=postgresql://postgres:postgres@db-hostname:5432/train_tickets
-PORT=3001
+DB_HOST=db-hostname
 ```
-
-The systemd service reads this file on startup. Values in this file override the defaults.
 
 ### Local Development
 
 ```bash
 cd backend
 npm install
-DATABASE_URL=postgresql://postgres:postgres@your-db-host:5432/train_tickets npm start
+DB_HOST=your-db-host npm start
 ```
 
 ### Defaults
 
 | Variable | Default |
 |----------|---------|
-| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/train_tickets` |
+| `DB_HOST` | `localhost` |
 | `PORT` | `3001` |
 
 ## Build
@@ -48,18 +47,15 @@ DATABASE_URL=postgresql://postgres:postgres@your-db-host:5432/train_tickets npm 
 podman build -t quay.io/kubealex/image-mode-backend:v1.1 .
 ```
 
-With custom connection strings baked into the image:
+With a custom database hostname baked into the image:
 
 ```bash
-podman build \
-  --build-arg DATABASE_URL=postgresql://postgres:postgres@db.example.com:5432/train_tickets \
-  --build-arg BACKEND_PORT=3001 \
+podman build --build-arg DB_HOST=db.example.com \
   -t quay.io/kubealex/image-mode-backend:v1.1 .
 ```
 
 | Build ARG | Default | Description |
 |-----------|---------|-------------|
-| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/train_tickets` | PostgreSQL connection string |
-| `BACKEND_PORT` | `3001` | API listen port |
+| `DB_HOST` | `localhost` | PostgreSQL hostname |
 
 Base image: `quay.io/kubealex/image-mode-baseos:latest`
