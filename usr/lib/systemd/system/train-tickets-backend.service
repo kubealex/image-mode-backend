@@ -9,8 +9,7 @@ ExecStart=/usr/bin/node /var/app/backend/src/index.js
 Restart=on-failure
 RestartSec=5
 
-Environment=PORT=3001
-Environment=DATABASE_URL=postgresql://postgres:postgres@localhost:5432/train_tickets
+EnvironmentFile=-/etc/train-tickets/backend.env
 
 [Install]
 WantedBy=multi-user.target
