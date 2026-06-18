@@ -14,3 +14,5 @@ COPY usr/ /usr/
 RUN echo "DB_HOST=${DB_HOST}" > /usr/share/train-tickets/backend/.env
 
 RUN systemctl enable train-tickets-backend.service
+
+RUN firewall-offline-cmd --zone=public --add-port=3001/tcp
