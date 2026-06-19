@@ -11,7 +11,7 @@ COPY src/ /usr/share/train-tickets/backend/src/
 
 COPY usr/ /usr/
 
-RUN echo "DB_HOST=${DB_HOST}" > /usr/share/train-tickets/backend/.env
+RUN mkdir -p /etc/train-tickets && echo "DB_HOST=${DB_HOST}" > /etc/train-tickets/backend.env
 
 RUN systemctl enable train-tickets-backend.service
 
