@@ -7,6 +7,7 @@ const ticketsRouter = require('./routes/tickets');
 const healthRouter = require('./routes/health');
 const schemaRouter = require('./routes/schema');
 const systemRouter = require('./routes/system');
+const bootcStatusRouter = require('./routes/bootc-status');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,6 +21,7 @@ app.use('/api/tickets', ticketsRouter);
 app.use('/api/health', healthRouter);
 app.use('/api/schema', schemaRouter);
 app.use('/api/system', systemRouter);
+app.use('/api/bootc-status', bootcStatusRouter);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Backend running on http://0.0.0.0:${PORT}`);
